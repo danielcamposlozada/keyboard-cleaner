@@ -23,7 +23,7 @@ install-app: app
 	ditto "build/${APP}" "${APPDIR}/${APP}"
 
 # Public release zip: universal binary, ad-hoc signed (no personal certificate).
-VERSION != cat VERSION
+VERSION := $(shell cat VERSION)
 
 release:
 	UNIVERSAL=1 SIGN_IDENTITY=- ./scripts/bundle.sh
