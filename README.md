@@ -23,7 +23,20 @@ herramienta de línea de comandos y le suma una app nativa.
 
 > El botón de encendido / Touch ID no se puede bloquear por software.
 
-## Instalar
+## Descargar
+
+1. Baja `Keyboard-Cleaner-X.Y.Z.zip` de
+   [Releases](https://github.com/danielcamposlozada/keyboard-cleaner/releases/latest),
+   descomprímelo y mueve **Keyboard Cleaner** a **Aplicaciones**.
+2. La app no está notarizada por Apple, así que la primera vez macOS la bloquea.
+   Intenta abrirla una vez, ve a **Ajustes del Sistema → Privacidad y seguridad**,
+   baja hasta el aviso sobre «Keyboard Cleaner» y pulsa **Abrir igualmente**.
+   (O en Terminal: `xattr -dr com.apple.quarantine "/Applications/Keyboard Cleaner.app"`.)
+3. Da el permiso de **Accesibilidad** cuando lo pida.
+
+Funciona en macOS 14 o superior, con Apple Silicon e Intel.
+
+## Compilar e instalar desde el código
 
 ```sh
 make install-app      # compila, firma e instala en /Applications
@@ -36,6 +49,8 @@ seguridad → Accesibilidad → Keyboard Cleaner**.
 encuentra (así el permiso se mantiene entre compilaciones). Si no hay ninguna,
 firma ad-hoc; en ese caso puede que tengas que volver a dar el permiso después
 de cada compilación. Puedes forzar una identidad con `SIGN_IDENTITY=...`.
+
+`make release` genera el zip público: binario universal y firma ad-hoc.
 
 ## Línea de comandos
 

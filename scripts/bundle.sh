@@ -8,8 +8,11 @@ cd "$(dirname "$0")/.."
 APP="build/Keyboard Cleaner.app"
 VERSION="${VERSION:-$(cat VERSION)}"
 
-swift build -c release --product KeyboardCleaner
-BIN="$(swift build -c release --show-bin-path)/KeyboardCleaner"
+# UNIVERSAL=1 builds for Apple Silicon + Intel.
+ARCH_ARGS=""
+[ "${UNIVERSAL:-0}" = 1 ] && ARCH_ARGS="--arch arm64 --arch x86_64"
+swift build -c release --product KeyboardCleaner $ARCH_ARGS
+BIN="$(swift build -c release --show-bin-path $ARCH_ARGS)/KeyboardCleaner"
 
 rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"

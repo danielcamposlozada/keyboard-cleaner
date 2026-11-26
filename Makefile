@@ -22,6 +22,13 @@ install-app: app
 	rm -rf "${APPDIR}/${APP}"
 	ditto "build/${APP}" "${APPDIR}/${APP}"
 
+# Public release zip: universal binary, ad-hoc signed (no personal certificate).
+VERSION != cat VERSION
+
+release:
+	UNIVERSAL=1 SIGN_IDENTITY=- ./scripts/bundle.sh
+	ditto -c -k --keepParent "build/${APP}" "build/Keyboard-Cleaner-${VERSION}.zip"
+
 # Command-line tool
 build:
 	swift build -c release --product ${PROG}
@@ -42,4 +49,4 @@ uninstall:
 clean:
 	${RM} -r ${OBJDIR} build
 
-.PHONY: all app install-app bootstrap build debug install uninstall clean
+.PHONY: all app install-app release bootstrap build debug install uninstall clean
